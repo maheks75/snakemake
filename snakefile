@@ -13,7 +13,7 @@ rule full:
         with_4g="output/{sample}_first25bps_4g.txt"
     shell:
         """
-        python script1.py {input.fastq} {output.with_5g} {output.with_4g}
+        python3 script1.py {input.fastq} {output.with_5g} {output.with_4g}
         """
 
 rule extract_12bpUMI_before5Gs:
@@ -25,7 +25,7 @@ rule extract_12bpUMI_before5Gs:
         Extracted_4g="output/{sample}_Extracted4g.txt"
     shell:
         """
-        python script2.py {input.text_file_5g} {input.text_file_4g} {output.Extracted_5g} {output.Extracted_4g}
+        python3 script2.py {input.text_file_5g} {input.text_file_4g} {output.Extracted_5g} {output.Extracted_4g}
         """
 # Rule to find consensus sequences
 rule separate_repeating_and_nonrepeating_UMIs:
@@ -37,7 +37,7 @@ rule separate_repeating_and_nonrepeating_UMIs:
         output_file2_4g="output/{sample}_repeating_4g.txt"
     shell:
         """
-        python script3.py {input.extracted_file_5g} {input.extracted_file_4g} {output.output_file1_5g} {output.output_file2_4g}
+        python3 script3.py {input.extracted_file_5g} {input.extracted_file_4g} {output.output_file1_5g} {output.output_file2_4g}
         """     
 rule seprate_strings_repeating_twice_and_morethan_twice:
     input:
@@ -48,7 +48,7 @@ rule seprate_strings_repeating_twice_and_morethan_twice:
         multi_string_4g="output/{sample}_multiplestrings_4g.txt"
     shell:
         """
-        python script4.py {input.repating_file_5g} {input.repating_file_4g} {output.multi_string_5g} {output.multi_string_4g}
+        python3 script4.py {input.repating_file_5g} {input.repating_file_4g} {output.multi_string_5g} {output.multi_string_4g}
         """ 
 rule make_unique:
     input:
@@ -58,7 +58,7 @@ rule make_unique:
         unique_string_4g="output/{sample}_uniquestrings_4g.txt"
     shell:
         """
-        python script5.py {input.multi_file_5g} {input.multi_file_4g} {output.unique_string_4g} 
+        python3 script5.py {input.multi_file_5g} {input.multi_file_4g} {output.unique_string_4g} 
         """
 rule generate__consensus_for_5g_strings:
     input:
@@ -68,7 +68,7 @@ rule generate__consensus_for_5g_strings:
         output1_5g="output/{sample}_consensus_5g.txt"
     shell:
         """
-        python script6.py {input.fastq} {input.input_5g} {output.output1_5g} 
+        python3 script6.py {input.fastq} {input.input_5g} {output.output1_5g} 
         """ 
 rule generate__consensus_for_4g_strings:
     input:
@@ -78,7 +78,7 @@ rule generate__consensus_for_4g_strings:
         output2_4g="output/{sample}_consensus_4g.txt"
     shell:
         """
-        python script7.py {input.fastq} {input.input_4g} {output.output2_4g} 
+        python3 script7.py {input.fastq} {input.input_4g} {output.output2_4g} 
         """
 rule merging:
     input:
@@ -89,7 +89,7 @@ rule merging:
         output1_2="output/{sample}_umis_only.txt"
     shell:
         """
-        python script8.py {input.input1_1} {input.input2_2} {output.output1_1} {output.output1_2}
+        python3 script8.py {input.input1_1} {input.input2_2} {output.output1_1} {output.output1_2}
         """    
 rule blast:
     input:
@@ -100,7 +100,7 @@ rule blast:
         """
         eval "$(conda shell.bash hook)"
         conda activate igblast 
-        python script9.py {input.input_igblast} {output.output_igblast}
+        python3 script9.py {input.input_igblast} {output.output_igblast}
         conda deactivate 
         """
 rule postignlast:
@@ -108,8 +108,9 @@ rule postignlast:
         input_igblastout="output/{sample}_igblast_output.tsv",
         input_igblast_string="output/{sample}_umis_only.txt"
     output:
+        output_temp = "output/{sample}_igblast_out.tsv",
         output_final="output/{sample}_Final_processed_igblast_file.tsv"
     shell:
         """
-        python script10.py {input.input_igblastout} {input.input_igblast_string} {output.output_final}
-        """                                
+        python3 script10.py {input.input_igblastout} {input.input_igblast_string} {output.output_temp} {output.output_final}
+        """                              
