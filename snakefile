@@ -31,7 +31,7 @@ rule extract_12bpUMI_before5Gs:
 rule separate_repeating_and_nonrepeating_UMIs:
     input:
         extracted_file_5g="output/{sample}_Extracted5g.txt",
-        extracted_file_4g="output/{sample}_Extracted5g.txt"
+        extracted_file_4g="output/{sample}_Extracted4g.txt"
     output:
         output_file1_5g="output/{sample}_repeating_5g.txt",
         output_file2_4g="output/{sample}_repeating_4g.txt"
