@@ -3,7 +3,7 @@ configfile: "config.yaml"
 
 rule all:
     input:
-        expand("output/{sample}_Final_processed_igblast_file.tsv", sample=config["samples"]),
+        expand("output/{sample}_Final_processed_igblast_file.csv", sample=config["samples"]),
         
 rule full:
     input:
@@ -108,8 +108,8 @@ rule postignlast:
         input_igblastout="output/{sample}_igblast_output.tsv",
         input_igblast_string="output/{sample}_umis_only.txt"
     output:
-        output_temp = "output/{sample}_igblast_out.tsv",
-        output_final="output/{sample}_Final_processed_igblast_file.tsv"
+        output_temp = "output/{sample}_igblast_out.csv",
+        output_final="output/{sample}_Final_processed_igblast_file.csv"
     shell:
         """
         python3 script10.py {input.input_igblastout} {input.input_igblast_string} {output.output_temp} {output.output_final}
