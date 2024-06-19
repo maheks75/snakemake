@@ -1,6 +1,7 @@
 import sys
 from Bio import SeqIO
 import subprocess
+print('script 9 start')
 input_fasta = sys.argv[1]
 output_fasta = sys.argv[2]
 igblast_cmd = [
@@ -14,10 +15,11 @@ igblast_cmd = [
      '-num_threads', '32',
      '-outfmt', '19',
 ]
-
 try:
     subprocess.run(igblast_cmd, check=True)
     print("IgBLAST analysis complete. Output saved to:", output_fasta)
-except subprocess.CalledProcessError as e:  
+except subprocess.CalledProcessError as e:
     print("Error running IgBLAST:", e)
+print('script 9 finish')
+
 
