@@ -4,6 +4,7 @@ import sys
 input_fastq_file = sys.argv[1]
 output_file_5g_with_g = sys.argv[2]
 output_file_4g_with_g = sys.argv[3]
+print('script1 starts')
 with open(output_file_5g_with_g, 'w') as output_handle_with_5g:
     for i, record in enumerate(SeqIO.parse(input_fastq_file, "fastq")):
         sequence_data = str(record.seq)[:25]
@@ -18,3 +19,5 @@ with open(output_file_4g_with_g, 'w') as output_handle_with_4g:
 
         if 'GGGG' in sequence_data:
             output_handle_with_4g.write(f"{sequence_data}\n")
+print('script1 finsihed')
+
