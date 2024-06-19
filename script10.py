@@ -77,10 +77,13 @@ aggregation_dict = selected_df.groupby('sequence_aa').agg({
                    selected_df.columns[54]: 'first'}
 ).reset_index()
 
-aggregation_dict.to_csv(sys.argv[3], index=False)
+
+aggregation_dict.to_csv(sys.argv[3], sep='\t', index=False)
 # Create a DataFrame with your UMI data
-df = pd.read_csv(sys.argv[3])
+df = pd.read_csv(sys.argv[3], sep='\t')
 #print(df.columns)
 # Split the UMI strings by space and count the number of strings
 df['Number_of_Strings'] = df['umi'].apply(lambda x: len(x.split()))
-df.to_csv(sys.argv[4],index = False)
+df.to_csv(sys.argv[4], sep='\t', index = False)
+print('script10 finish')
+
