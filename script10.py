@@ -2,8 +2,8 @@ import pandas as pd
 import sys
 # Load the TSV file into a DataFrame
 print('script10 start')
-tsv_file_path = sys.argv[1]
-df = pd.read_csv(tsv_file_path, sep='\t')
+csv_file_path = sys.argv[1]
+df = pd.read_csv(csv_file_path, sep = '\t')
 
 # Load the text file with strings
 strings_file_path = sys.argv[2]
@@ -23,7 +23,6 @@ selected_columns = [0,1,2,3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1
 selected_df = df.iloc[:, selected_columns]
 #print(selected_df)
 # Group by the "sequence_aa" column and aggregate other columns
-
 aggregation_dict = selected_df.groupby('sequence_aa').agg({
                    selected_df.columns[0]: 'sum',
                    selected_df.columns[1]: 'unique',
@@ -80,13 +79,11 @@ aggregation_dict = selected_df.groupby('sequence_aa').agg({
                    selected_df.columns[54]: 'first'}
 ).reset_index()
 
-
-aggregation_dict.to_csv(sys.argv[3], sep='\t', index=False)
+aggregation_dict.to_csv(sys.argv[3],index = False)
 # Create a DataFrame with your UMI data
-df = pd.read_csv(sys.argv[3], sep='\t')
+df = pd.read_csv(sys.argv[3])
 #print(df.columns)
 # Split the UMI strings by space and count the number of strings
 df['Number_of_Strings'] = df['umi'].apply(lambda x: len(x.split()))
-df.to_csv(sys.argv[4], sep='\t', index = False)
+df.to_csv(sys.argv[4],index=False)
 print('script10 finish')
-
