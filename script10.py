@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 # Load the TSV file into a DataFrame
+print('script10 start')
 tsv_file_path = sys.argv[1]
 df = pd.read_csv(tsv_file_path, sep='\t')
 
@@ -15,12 +16,14 @@ df.insert(1, 'umi', umi_strings[:len(df)])
 # Keep columns 0 to 54
 df = df.iloc[:, :55]
 
-# Specify the column numbers you want to select
-selected_columns = [0,1,2,3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]
+
+# Select the columns of interest
+selected_columns = [0,1,2,3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34>
 
 selected_df = df.iloc[:, selected_columns]
 #print(selected_df)
 # Group by the "sequence_aa" column and aggregate other columns
+
 aggregation_dict = selected_df.groupby('sequence_aa').agg({
                    selected_df.columns[0]: 'sum',
                    selected_df.columns[1]: 'unique',
