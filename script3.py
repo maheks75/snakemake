@@ -3,7 +3,7 @@ filename_5G = sys.argv[1]
 filename_4G = sys.argv[2]
 repeating_filename_5G = sys.argv[3]
 repeating_filename_4G = sys.argv[4]
-
+print('script3 start')
 # Read the strings from the file
 with open(filename_5G, 'r') as file_5G:
     strings_5G = [line.strip() for line in file_5G]
@@ -64,4 +64,5 @@ repeating_strings_4G.sort(key=lambda x: x[1], reverse=True)
 # Write repeating strings to file with count
 with open(repeating_filename_4G, 'w') as file:
     for string_4G, count_4G in repeating_strings_4G:
-        file.write(f"{string_4G}: {count_4G}\n")        
+        file.write(f"{string_4G}: {count_4G}\n") 
+print('script3 finish')
