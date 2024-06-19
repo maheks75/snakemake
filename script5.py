@@ -1,6 +1,6 @@
 import sys
 import os
-
+print('script5 start')
 def read_text_file(file_path):
     with open(file_path, 'r') as file:
         lines = file.readlines()
@@ -24,9 +24,9 @@ else:
     # Print the common strings
     for string in file2_strings_4g:
         if isinstance(string, str) and string not in common_strings:
-            print(string)
+            #print(string)
             unique_string.append(string)
     with open(sys.argv[3], 'w') as file:
         for strg in unique_string:
             file.write(strg+'\n')
-     
+print('script5 finish')
